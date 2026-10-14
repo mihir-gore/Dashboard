@@ -1,0 +1,67 @@
+{
+    "categories": [
+        {
+            "id": "cspm",
+            "name": "CSPM Executive Dashboard",
+            "tabLabel": "CSPM",
+            "widgets":[
+                {
+                    "id":"w1",
+                    "name":"Cloud Accounts",
+                    "text": "4 Total Cloud Accounts (2 Active, 2 Disconnected)",
+                    "active": true
+                },
+                {
+                    "id":"w2",
+                    "name": "Cloud Risk Assessment",
+                    "text":"1,226 Compliance Checks: 212 Passed, 1,000 Failed, 12 Warning, 2 N/A",
+                    "active":true
+                }
+            ]
+        },
+        {
+            "id": "cwpp",
+            "name":"CWPP Dashboard",
+            "tabLabel":"CWPP",
+            "widgets": [
+                {
+                    "id":"w3",
+                    "name":"Top 5 Namespace Specific Alerts",
+                    "text":"684 Alerts | kube-system: 250, prod-a: 180, staging-b: 145, ingress: 90, test: 19",
+                    "active":true
+                },
+                {
+                    "id": "w4",
+                    "name":"Workload Alerts",
+                    "text":"1,520 Total Workload Anomalies: 380 Critical, 532 High, 380 Medium, 228 Low",
+                    "active":true
+                }
+            ]
+        },
+        {
+            "id":"image",
+            "name": "Registry Scan",
+            "tabLabel": "Image",
+            "widgets":[
+                {
+                    "id":"w5",
+                    "name":"Image Risk Assessment",
+                    "text":"1,240 Total Vulnerabilities: 6 Critical, 118 High, 486 Medium, 630 Low",
+                    "active":true
+                },
+                {
+                    "id":"w6",
+                    "name":"Image Security Issues",
+                    "text":"2 Total Scanned Images: 2 Critical, 2 High-severity policy violations detected",
+                    "active":true
+                }
+            ]
+        },
+        {
+            "id":"ticket",
+            "name": "Ticket Dashboard",
+            "tabLabel": "Ticket",
+            "widgets":[]
+        }
+    ]
+}
