@@ -12,9 +12,12 @@ function getActiveWidgets(categories){
 }
 
 function WidgetPanel({onStartCategoryId,onClose}){
-    const {categories,activateWidgets}=useDashboard();
+    const {categories,activateWidgets,addWidget}=useDashboard();
     const [tabId,setTabId]=useState(onStartCategoryId);
     const [draft,setDraft]=useState(getActiveWidgets(categories));
+    const [newName,setNewName]=useState("");
+    const [newText,setNewText]=useState("");
+    const [error,setError]=useState("");
 
     function handleCheck(widgetId){
         setDraft({...draft,[widgetId]: !draft[widgetId]});
@@ -24,6 +27,22 @@ function WidgetPanel({onStartCategoryId,onClose}){
         activateWidgets(draft);
         onClose();
     }
+
+    function handleAdd(event){
+        event.preventDefault();
+        if(newName.trim()==="" || newText.trim()===""){
+            setError("Please enter both a widget name and widget text.");
+            return;
+    }
+
+        const newId=addWidget(tabId,newName.trim(),newText.trim());
+        setDraft({...draft,[newId]:true});
+        setNewName("");
+        setNewText("");
+        setError("");
+        
+    }
+
     const currentCategory=categories.find((category)=>category.id===tabId)
 
      return (
@@ -62,7 +81,26 @@ function WidgetPanel({onStartCategoryId,onClose}){
           ))}
         </div>
 
+          <form onSubmit={handleAdd} className="border-t border-slate-200 p-4">
+          
+          <p className="mb-2 text-sm font-semibold text-slate-700">
+            Create a new widget in {currentCategory.tabLabel}
+          </p>
+          <input type="text" value={newName}  placeholder="Widget name" className="mb-2 w-full rounded border border-slate-300 px-3 py-1 text-sm outline-none focus:border-blue-900" 
+             onChange={(event) => setNewName(event.target.value)} />
+
+          <input type="text" value={newText}  placeholder="Widget text" className="mb-2 w-full rounded border border-slate-300 px-3 py-1 text-sm outline-none focus:border-blue-900"
+             onChange={(event) => setNewText(event.target.value)} />
+
+          {error && <p className="mb-2 text-sm text-red-600">{error}</p>}
+
+          <button type="submit" className="rounded border border-blue-900 px-3 py-1 text-sm text-blue-900 hover:bg-blue-50" >
+            Add Widget
+          </button>
+        </form>
+
         <div className="flex justify-end gap-2 border-t border-slate-200 p-4">
+          
           <button onClick={onClose} className="rounded border border-slate-300 px-4 py-1 text-sm">
             Cancel
           </button>

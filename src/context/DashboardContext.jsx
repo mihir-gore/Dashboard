@@ -38,6 +38,7 @@ export function DashboardProvider({children}){
             return {...category,widgets:[...category.widgets,newWidget]};
         })
         setCategories(updatedCategories);
+        return newWidget.id;
     }
 
      function activateWidgets(activeById){
