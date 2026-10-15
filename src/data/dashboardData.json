@@ -23,7 +23,7 @@
             "id": "cwpp",
             "name":"CWPP Dashboard",
             "tabLabel":"CWPP",
-            "widgets": [
+            "widgets":[
                 {
                     "id":"w3",
                     "name":"Top 5 Namespace Specific Alerts",

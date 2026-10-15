@@ -40,8 +40,18 @@ export function DashboardProvider({children}){
         setCategories(updatedCategories);
     }
 
+     function activateWidgets(activeById){
+        const updatedCategories=categories.map((category)=>{
+            const updatedWidgets=category.widgets.map((widget)=>{
+                return {...widget,active:activeById[widget.id]}
+            })
+            return {...category,widgets:updatedWidgets}
+        })
+        setCategories(updatedCategories);
+     }
+
     return(
-           <DashboardContext.Provider value={{categories,searchText,setSearchText,toggleWidget,addWidget}}>
+           <DashboardContext.Provider value={{categories,searchText,setSearchText,toggleWidget,addWidget,activateWidgets}}>
             {children}
            </DashboardContext.Provider>
     )

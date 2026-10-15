@@ -1,6 +1,7 @@
 import {useDashboard} from "../context/DashboardContext"
 import Category from "./Category"
 import { useState } from "react";
+import WidgetPanel from "./WidgetPanel"; 
 
 function Dashboard(){
     const {categories}=useDashboard();
@@ -24,6 +25,7 @@ function Dashboard(){
                 <Category key={category.id} category={category} onAddClick={setPanelId}/>
             ))}
              
+              {panelId && (<WidgetPanel onStartCategoryId={panelId} onClose={() => setPanelId(null)}/> )}
           </div>
         </div>
     )
