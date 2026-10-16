@@ -1,16 +1,42 @@
-# React + Vite
+# Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A dashboard that is built with React where widgets are grouped into categories. Widgets can be added, removed and searched.
 
-Currently, two official plugins are available:
+**Live Link:** https://dashboard-cnapp-v2.vercel.app/
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Technologies Used 
 
-## React Compiler
+- React (Vite)
+- Context API for State Management
+- Tailwind CSS for Styling 
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Features
 
-## Expanding the ESLint configuration
+- Dashboard is built from a JSON file (categories, each containing multiple widgets)
+- Remove a widget with the cross icon on the card
+- "AddWidget +" opens a side panel with a tab for each category
+- Tick or untick widgets in the panel, then press confirm to apply changes (Clicking Cancel discards)
+- Create a new widget by entering a name and text, and it is added to the selected category
+- Search the dashboard cards from the top search box
+- Search all widgets (including the removed ones) inside the panel
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## How to run locally
+
+1. Install [Node.js](https://nodejs.org) (version 20.19 or above, or 22.12 or above)
+2. Clone the Repository
+   ``` git clone https://github.com/mihir-gore/Dashboard.git ```
+3. Go into the folder
+   ``` cd Dashboard ```
+4. Install the dependencies
+   ``` npm install ```
+5. Start the development server
+   ``` npm run dev ```
+6. Open the link shown in the terminal (usually http://localhost:5173)
+
+To create a production build: 'npm run build' , and to preview it : 'npm run preview'.
+
+##Notes
+
+- Data is kept in-memory only, so the dashboard resets to the JSON on page refresh.
+
+
