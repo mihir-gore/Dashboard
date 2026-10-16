@@ -1,9 +1,19 @@
 import { useDashboard } from "../context/DashboardContext";
 
 function Category({category,onAddClick}){
+    const {toggleWidget,searchText}=useDashboard();
+    const search = searchText.trim().toLowerCase();
+    const activeWidgets=category.widgets.filter((widget)=>{
+        if(!widget.active){
+            return false;
+        }
+        return( widget.name.toLowerCase().includes(search) || widget.text.toLowerCase().includes(search) );
+    })
     
-    const activeWidgets=category.widgets.filter((widget)=>widget.active);
-    const {toggleWidget}=useDashboard();
+    if (search !== "" && activeWidgets.length === 0) {
+    return null;
+         }
+
     return(
         <section className="mb-6">
             <h2 className="mb-2 text-sm font-bold text-slate-800">{category.name}</h2>
@@ -16,10 +26,10 @@ function Category({category,onAddClick}){
                         <h3 className="pr-6 text-sm font-semibold text-slate-800 wrap-break-word">{widget.name}</h3>
                         <p className="mt-2 text-sm text-slate-600 wrap-break-word">{widget.text}</p>                  
                     </div>
-                ))}
+                ))}{search===""&&(
                 <button onClick={()=>onAddClick(category.id)} className="flex min-h-32 items-center justify-center rounded-lg border-2 border-dashed border-slate-300 bg-slate-50 text-sm text-slate-500 hover:border-blue-900 hover:text-blue-900">
                  Add Widget +
-                </button>
+                </button>)}
             </div>
         </section>
     )

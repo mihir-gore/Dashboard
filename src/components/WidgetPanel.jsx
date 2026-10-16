@@ -18,6 +18,8 @@ function WidgetPanel({onStartCategoryId,onClose}){
     const [newName,setNewName]=useState("");
     const [newText,setNewText]=useState("");
     const [error,setError]=useState("");
+    const [panelSearch,setPanelSearch] =useState("");
+    const query=panelSearch.trim().toLowerCase();
 
     function handleCheck(widgetId){
         setDraft({...draft,[widgetId]: !draft[widgetId]});
@@ -42,8 +44,20 @@ function WidgetPanel({onStartCategoryId,onClose}){
         setError("");
         
     }
+    
+    const currentCategory = categories.find((category) => category.id === tabId);
 
-    const currentCategory=categories.find((category)=>category.id===tabId)
+    const listItems = [];
+    categories.forEach((category) => {
+        if (query === "" && category.id !== tabId) {
+            return;
+        }
+        category.widgets.forEach((widget) => {
+            if (widget.name.toLowerCase().includes(query)) {
+                listItems.push({ widget: widget, categoryLabel: category.tabLabel });
+            }
+        });
+    });
 
      return (
     <div className="fixed inset-0 z-10 flex justify-end bg-black/40">
@@ -58,6 +72,12 @@ function WidgetPanel({onStartCategoryId,onClose}){
         <p className="px-4 pt-3 text-sm text-slate-600">
           Personalise your dashboard by adding the following widget
         </p>
+         
+         <div className="px-4 pt-3">
+       <input type="text" value={panelSearch}  placeholder="Search widgets..." className="w-full rounded border border-slate-300 px-3 py-1 text-sm outline-none focus:border-blue-900"
+          onChange={(e) => setPanelSearch(e.target.value)}
+       />
+        </div>
 
         <div className="mt-3 flex gap-4 border-b border-slate-200 px-4">
           {categories.map((category) => (
@@ -69,16 +89,23 @@ function WidgetPanel({onStartCategoryId,onClose}){
         </div>
 
         <div className="flex-1 overflow-y-auto p-4">
-          {currentCategory.widgets.length === 0 && (
-            <p className="text-sm text-slate-400">No widgets in this category yet.</p>
-          )}
-
-          {currentCategory.widgets.map((widget) => (
-            <label key={widget.id} className="mb-2 flex cursor-pointer items-center gap-3 rounded border border-slate-200 px-3 py-2 text-sm">
-              <input type="checkbox" checked={draft[widget.id]} onChange={() => handleCheck(widget.id)}  />
-              {widget.name}
-            </label>
-          ))}
+        {
+        listItems.length ===0 && (
+            <p className="text-sm text-slate-400">
+                {query===""?"No widgets in this category yet.": "No widgets matches your search"}
+            </p>
+        )
+        }
+        {
+            listItems.map(({widget,categoryLabel})=>(
+                <label key={widget.id} className="mb-2 flex cursor-pointer items-center gap-3 rounded border border-slate-200 px-3 py-2 text-sm">
+                    <input type="checkbox" checked={draft[widget.id]} onChange={()=> handleCheck(widget.id)}/>
+                    {widget.name}
+                    {query!=="" && ( <span className="ml-auto text-xs text-slate-400">{categoryLabel}</span>)}
+                </label>
+            ))
+        }
+    
         </div>
 
           <form onSubmit={handleAdd} className="border-t border-slate-200 p-4">
